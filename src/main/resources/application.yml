@@ -1,0 +1,43 @@
+# Custom Application Properties
+app:
+  simulation:
+    rate: 5000 # Run every 5000ms (5 seconds)
+
+# Standard Spring Configuration
+spring:
+  application:
+    name: medical-measurements-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicaldb}
+    username: ${SPRING_DATASOURCE_USERNAME:medical}
+    password: ${SPRING_DATASOURCE_PASSWORD:medical}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    display-request-duration: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
